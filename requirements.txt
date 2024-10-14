@@ -7,11 +7,11 @@ loguru
 matplotlib
 mkdocs
 notebook
-numpy==1.26.4
-pandas==1.5.3
+numpy
+pandas
 pip
 python-dotenv
-scikit-learn==1.2.0
+scikit-learn
 imbalanced-learn
 joblib
 pyreadr
@@ -23,4 +23,4 @@ threadpoolctl
 tzdata
 tqdm
 typer
--e . /mnt/HDSCA_Pipeline/software/csi_utils/
+/mnt/HDSCA_Pipeline/software/csi_utils

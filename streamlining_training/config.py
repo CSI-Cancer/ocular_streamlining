@@ -31,7 +31,10 @@ else:
 
 # production and devlopment data storage location
 PRODUCTION_REPORT_DIR = Path(NETWORK_ROOT) / "HDSCA_Pipeline" / "DZ"
-DEVELOPMENT_REPORT_DIR = Path(NETWORK_ROOT) / "HDSCA_Development" / "DZ" 
+PRODUCTION_SECRET_PATH = Path(NETWORK_ROOT) / "secrets"
+DEVELOPMENT_REPORT_DIR = Path(NETWORK_ROOT) / "HDSCA_Development" / "DZ"
+DEVELOPMENT_SECRET_PATH = Path(NETWORK_ROOT) / "HDSCA_Development" / "secrets"
+
 
 # Local repo data storage location
 RAW_DATA_DIR = DATA_DIR / "raw"
