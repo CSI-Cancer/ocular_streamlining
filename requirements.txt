@@ -7,11 +7,20 @@ loguru
 matplotlib
 mkdocs
 notebook
-numpy
-pandas
+numpy==1.26.4
+pandas==1.5.3
 pip
 python-dotenv
-scikit-learn
+scikit-learn==1.2.0
+imbalanced-learn
+joblib
+pyreadr
+python-dateutil
+pytz
+scipy
+six
+threadpoolctl
+tzdata
 tqdm
 typer
--e .
+-e . /mnt/HDSCA_Pipeline/software/csi_utils/
