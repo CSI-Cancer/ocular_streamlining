@@ -4,6 +4,7 @@ import typer
 from loguru import logger
 from tqdm import tqdm
 
+import csi_utils
 from streamlining_training.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 
 app = typer.Typer()
