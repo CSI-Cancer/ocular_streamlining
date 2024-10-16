@@ -64,11 +64,14 @@ try:
 except ModuleNotFoundError:
     pass
 
+# Training related parameters
+# TODO: Training config needs to be changed to be acceptable from YAML file
+
 # outcome column prediction
 OUTCOME = 'interesting'
 
 # Cohorts for training
-COHORT = []
+COHORT_PAIR = []
 
 CUSTOM_SPLIT = {}
 
@@ -106,3 +109,6 @@ SELECT_FEATURES = True
 # Detailed evaluation
 TARGET_SLIDES = 'test'
 VISUALIZE_EVENTS = {0.5:True}
+
+
+# OCULAR parameters
