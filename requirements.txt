@@ -17,10 +17,12 @@ joblib
 pyreadr
 python-dateutil
 pytz
+openpyxl
 scipy
 six
 threadpoolctl
 tzdata
 tqdm
 typer
+seaborn
 /mnt/HDSCA_Pipeline/software/csi_utils
