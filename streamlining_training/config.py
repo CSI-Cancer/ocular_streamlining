@@ -112,3 +112,52 @@ VISUALIZE_EVENTS = {0.5:True}
 
 
 # OCULAR parameters
+drop_dapi_neg = True
+drop_channel_class = ["(DAPI-)CD", "(Dapi-)CD", "(Dapi-)V", "(Dapi-)V|CD"]
+
+ocular_params = {
+    'not_int_sample_size': 1000,
+    'drop_columns': True,
+    'drop_common_cells': True,
+    'dapipos': True,
+    'drop_morphs': ['theta', 'blurred','haralick','multi_channel',
+                    'remove_slide_level', 'remove_frame_level'],
+    'keep_morphs': [],
+    'dapi_pos_files': ["rc-final1.rds",
+        "rc-final2.rds",
+        "rc-final3.rds",
+        "rc-final4.rds",
+        "ocular_interesting.rds"],
+    'dapi_neg_files': ["others-final1.rds",
+        "others-final2.rds",
+        "others-final3.rds",
+        "others-final4.rds"],
+    
+}
+
+# Data preprocessing parameters
+channel_map = {'D' :'dapi',
+               'CK' : 'tritc',
+               'V' : 'fitc',
+               'CD' : 'cy5'
+               }
+
+feature_sdom_levels = {
+    'frame': ['cellf.tritc.b.mean', 'cellf.tritc.b.sd', 'cellf.tritc.b.mad',
+              'cellf.tritc.b.q001', 'cellf.tritc.b.q005', 'cellf.tritc.b.q05',
+              'cellf.tritc.b.q095', 'cellf.tritc.b.q099', 'tritc_cy5_ratio',
+
+              'cellf.fitc.b.mean', 'cellf.fitc.b.sd', 'cellf.fitc.b.mad',
+              'cellf.fitc.b.q001', 'cellf.fitc.b.q005', 'cellf.fitc.b.q05',
+              'cellf.fitc.b.q095', 'cellf.fitc.b.q099', 
+              
+              'cellf.cy5.b.mean', 'cellf.cy5.b.sd', 'cellf.cy5.b.mad',
+              'cellf.cy5.b.q001', 'cellf.cy5.b.q005', 'cellf.cy5.b.q05',
+              'cellf.cy5.b.q095', 'cellf.cy5.b.q099',
+              
+              'nucleusf.dapi.b.mean', 'nucleusf.dapi.b.sd', 'nucleusf.dapi.b.mad',
+              'nucleusf.dapi.b.q001', 'nucleusf.dapi.b.q005', 'nucleusf.dapi.b.q05',
+              'nucleusf.dapi.b.q095', 'nucleusf.dapi.b.q099'],
+}
+
+event_id = ['frame_id', 'slide_id', 'cell_id', 'cellx', 'celly']
