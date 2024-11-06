@@ -9,6 +9,7 @@ from sklearn.model_selection import RandomizedSearchCV
 
 from imblearn.over_sampling import SMOTE
 from imblearn.over_sampling import RandomOverSampler
+from sklearn.utils import shuffle
 
 
 # Add the project root directory to sys.path
@@ -27,6 +28,21 @@ def get_oversampler(sampler="random"):
                      random_state=42)
     else:
         raise ValueError(f"Unknown sampler: {sampler}")
+    
+def get_data(train_path, val_path, test_path, features_path):
+    # Load data
+    train_data = pd.read_csv(train_path, converters={'slide_id':str})
+    val_data = pd.read_csv(val_path, converters={'slide_id':str})
+    test_data = pd.read_csv(test_path, converters={'slide_id':str})
+    features = pd.read_csv(features_path, header=None).values.flatten().tolist()
+    train_df =  shuffle(train_df, random_state=42)
+    X_train = train_data[features]
+    y_train = train_data["interesting"]
+    X_val = val_data[features]
+    y_val = val_data["interesting"]
+    X_test = test_data[features]
+    y_test = test_data["interesting"]
+    return X_train, y_train, X_val, y_val, X_test, y_test
 
 
 def main(
@@ -43,20 +59,18 @@ def main(
     # ---- REPLACE THIS WITH YOUR OWN CODE ----
     logger.info("Training...")
     # Load data
-    train_data = pd.read_csv(train_path, converters={'slide_id':str})
-    val_data = pd.read_csv(val_path, converters={'slide_id':str})
-    test_data = pd.read_csv(test_path, converters={'slide_id':str})
-    features = pd.read_csv(features_path, header=None).values.flatten().tolist()
-    X_train = train_data[features]
-    y_train = train_data["interesting"]
-    X_val = val_data[features]
-    y_val = val_data["interesting"]
+    X_train, y_train, X_val, y_val, X_test, y_test = get_data(train_path,
+                                                                val_path,
+                                                                test_path,
+                                                                features_path)
 
     # Over-sample the minority in the training data
     sampler = get_oversampler("smote")
     X_train, y_train = sampler.fit_resample(X_train, y_train)
 
     # Sweep over hyperparameters
+    model = get_model
+    sweep_type = RandomizedSearchCV(estimator=model,)
     
     logger.success("Modeling training complete.")
     # -----------------------------------------

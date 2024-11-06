@@ -162,21 +162,6 @@ model_params = {
         "max_features": 1.0,
         "max_bins": 255,
     },
-    "RandomForestClassifier": {
-        "n_estimators": [100],
-        "criterion": ["gini"],
-        "max_depth": [None],
-        "min_samples_split": [2],
-        "min_samples_leaf": [1],
-        "min_weight_fraction_leaf": [0.0],
-        "max_features": ["sqrt"],
-        "max_leaf_nodes": [None],
-        "min_impurity_decrease": [0.0],
-        "bootstrap": [False],
-        "oob_score": [False],
-        "class_weight": ["balanced"],
-        "ccp_alpha": [0.0],
-    }
 }
 
 scoring_types = ['accuracy']
