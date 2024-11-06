@@ -1,4 +1,8 @@
 site_name: streamlining training
+nav:
+  - Home: index.md
+  - About: about.md
+theme: readthedocs
 # 
 site_author: Rajiv M N
 # 
