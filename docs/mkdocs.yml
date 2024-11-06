@@ -1,6 +1,7 @@
 site_name: streamlining training
 nav:
   - Home: index.md
+  - Getting Started: getting-started.md
   - About: about.md
 theme: readthedocs
 # 
