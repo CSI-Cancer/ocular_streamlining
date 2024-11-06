@@ -5,11 +5,13 @@ from loguru import logger
 from tqdm import tqdm
 import sys
 import pandas as pd
-from sklearn.model_selection import RandomizedSearchCV
+import joblib
 
+from sklearn.model_selection import RandomizedSearchCV
 from imblearn.over_sampling import SMOTE
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.utils import shuffle
+from sklearn.ensemble import HistGradientBoostingClassifier
 
 
 # Add the project root directory to sys.path
@@ -35,7 +37,7 @@ def get_data(train_path, val_path, test_path, features_path):
     val_data = pd.read_csv(val_path, converters={'slide_id':str})
     test_data = pd.read_csv(test_path, converters={'slide_id':str})
     features = pd.read_csv(features_path, header=None).values.flatten().tolist()
-    train_df =  shuffle(train_df, random_state=42)
+    train_data =  shuffle(train_data, random_state=42)
     X_train = train_data[features]
     y_train = train_data["interesting"]
     X_val = val_data[features]
@@ -69,9 +71,24 @@ def main(
     X_train, y_train = sampler.fit_resample(X_train, y_train)
 
     # Sweep over hyperparameters
-    model = get_model
-    sweep_type = RandomizedSearchCV(estimator=model,)
-    
+    model = HistGradientBoostingClassifier(random_state=42)
+    sweep_type = RandomizedSearchCV(estimator=model,
+                                    param_distributions=sweep_config,
+                                    n_iter=500,
+                                    scoring='average_precision',
+                                    n_jobs=-1,
+                                    cv=5,
+                                    random_state=42,
+                                    verbose=1)
+    # fit gridsearch
+    sweep_type.fit(X_train, y_train)
+
+    sweep_results=pd.DataFrame.from_dict(sweep_type.cv_results_,orient='columns')
+    sweep_results.to_csv(f'{MODELS_DIR}search_results.csv')
+
+    model = model.best_estimator_
+    # save best model for validation
+    joblib.dump(model, model_path)
     logger.success("Modeling training complete.")
     # -----------------------------------------
 
