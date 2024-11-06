@@ -5,6 +5,7 @@ from loguru import logger
 import platform
 import os
 import sys
+import numpy as np
 
 # Load environment variables from .env file if it exists
 load_dotenv()
@@ -78,30 +79,17 @@ CUSTOM_SPLIT = {}
 # performance threshold for filtering based on feature importance
 THRESH = 0.0
 
+# every even can be identified by the following columns
+event_id = ['frame_id', 'slide_id', 'cell_id', 'cellx', 'celly']
+
 # drop features
-DROP_FEATURES = [OUTCOME] + ['slide_id',
-                    'model_classification',
-                    'frame_id','cell_id',
-                    'unique_id',
-                    'cellx','celly','catalogue_id','catalogue_classification',
-                    'catalogue_distance',
-                    'cellcluster_id',
-                    'cellcluster_count',
-                    'framegroup',
-                    'rowname',
-                    'atlas_version',
-                    'TRITC',
-                    'CY5',
-                    'FITC',
-                    'clust',
-                    'hcpc',
-                    'slide_sdev_level_0',
-                    'slide_sdev_index',
-                    'not_interesting_report_tab',
-                    'Unnamed',
-                    'Unnamed: 0']
-DROP_FEATURES += ['hcpc', 'atlas_id',
-                     'atlas_distance', 'atlas_version']
+# model_classification can be used as a feature after training a better channel classifier since 
+# ATLAS has a bad channel classifier 
+DROP_FEATURES = event_id + ['model_classification', 'unique_id', 'catalogue_id',
+                            'catalogue_classification', 'catalogue_distance',
+                            'cellcluster_id', 'cellcluster_count', 'rowname',
+                            'atlas_version', 'TRITC', 'CY5', 'FITC', 'clust',
+                            'hcpc',]
 
 # feature engineering
 SELECT_FEATURES = True
@@ -160,4 +148,51 @@ feature_sdom_levels = {
               'nucleusf.dapi.b.q095', 'nucleusf.dapi.b.q099'],
 }
 
-event_id = ['frame_id', 'slide_id', 'cell_id', 'cellx', 'celly']
+# Model training parameters for feature selection
+model_params = {
+    "model": 'HistGradientBoostingClassifier',
+    "HistGradientBoostingClassifier": {
+        "loss": "log_loss",
+        "learning_rate": 0.1,
+        "max_iter": 100,
+        "max_leaf_nodes": 31,
+        "max_depth": None,
+        "min_samples_leaf": 20,
+        "l2_regularization": 0.1,
+        "max_features": 1.0,
+        "max_bins": 255,
+    },
+    "RandomForestClassifier": {
+        "n_estimators": [100],
+        "criterion": ["gini"],
+        "max_depth": [None],
+        "min_samples_split": [2],
+        "min_samples_leaf": [1],
+        "min_weight_fraction_leaf": [0.0],
+        "max_features": ["sqrt"],
+        "max_leaf_nodes": [None],
+        "min_impurity_decrease": [0.0],
+        "bootstrap": [False],
+        "oob_score": [False],
+        "class_weight": ["balanced"],
+        "ccp_alpha": [0.0],
+    }
+}
+
+scoring_types = ['accuracy']
+
+# Hyperparameter tuning
+sweep_config = {
+    'learning_rate': [0.05, 0.1, 0.2],
+    'max_iter': [50,100,200],
+    'max_leaf_nodes': [19,31,100,None],
+    'max_depth': [10, 50, 100, None],
+    'min_samples_leaf': [10, 20, 50, 100, 200],
+    'l2_regularization': [0, 0.001, 0.01, 0.1, 0.3, 0.5],
+    'early_stopping': [True],
+    'scoring': ['loss'],
+    'validation_fraction': [0.1, 0.2],
+    'n_iter_no_change': [5,10,20, 30],
+    'tol': [1e-8,1e-7,1e-6],
+    'class_weight': ['balanced'],
+}
