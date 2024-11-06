@@ -44,7 +44,10 @@ def get_data(train_path, val_path, test_path, features_path):
     y_val = val_data["interesting"]
     X_test = test_data[features]
     y_test = test_data["interesting"]
-    return X_train, y_train, X_val, y_val, X_test, y_test
+    # Since we are doing a K cross validation, we will combine the training and validation data
+    X_train = pd.concat([X_train, X_val])
+    y_train = pd.concat([y_train, y_val])
+    return X_train, y_train, X_test, y_test
 
 
 def main(
@@ -61,7 +64,7 @@ def main(
     # ---- REPLACE THIS WITH YOUR OWN CODE ----
     logger.info("Training...")
     # Load data
-    X_train, y_train, X_val, y_val, X_test, y_test = get_data(train_path,
+    X_train, y_train, X_test, y_test = get_data(train_path,
                                                                 val_path,
                                                                 test_path,
                                                                 features_path)
@@ -77,18 +80,20 @@ def main(
                                     n_iter=1000,
                                     scoring='average_precision',
                                     n_jobs=-1,
-                                    cv=5,
+                                    cv=10,
                                     random_state=42,
                                     verbose=1)
     # fit gridsearch
     sweep_type.fit(X_train, y_train)
+    logger.info(f"Sweeping complete")
 
     sweep_results=pd.DataFrame.from_dict(sweep_type.cv_results_,orient='columns')
-    sweep_results.to_csv(f'{MODELS_DIR}search_results.csv')
-
-    model = model.best_estimator_
+    sweep_results.to_csv(f'{MODELS_DIR} / search_results.csv')
+    
+    best_model = sweep_type.best_estimator_
     # save best model for validation
-    joblib.dump(model, model_path)
+    logger.info("Saving best Model...")
+    joblib.dump(best_model, model_path)
     logger.success("Modeling training complete.")
     # -----------------------------------------
 
