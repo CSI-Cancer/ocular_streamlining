@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 from loguru import logger
 from tqdm import tqdm
 import sys
@@ -56,7 +55,6 @@ def main(
     train_path: Path = PROCESSED_DATA_DIR / "train_data.csv",
     val_path: Path = PROCESSED_DATA_DIR / "val_data.csv",
     test_path: Path = PROCESSED_DATA_DIR / "test_data.csv",
-    labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
     model_path: Path = MODELS_DIR / "model.pkl",
     sweep_config: dict = sweep_config
     # -----------------------------------------
@@ -88,12 +86,18 @@ def main(
     logger.info(f"Sweeping complete")
 
     sweep_results=pd.DataFrame.from_dict(sweep_type.cv_results_,orient='columns')
-    sweep_results.to_csv(f'{MODELS_DIR} / search_results.csv')
+    sweep_results.to_csv(str(MODELS_DIR) + '/search_results.csv')
     
     best_model = sweep_type.best_estimator_
     # save best model for validation
     logger.info("Saving best Model...")
     joblib.dump(best_model, model_path)
+    logger.info("saving features...")
+    columns_path = MODELS_DIR / "features.txt"
+    with open(columns_path, 'w') as f:
+        for column in X_train.columns:
+            f.write(f"{column}\n")
+    logger.info(f"Saved columns of X_train to {columns_path}")
     logger.success("Modeling training complete.")
     # -----------------------------------------
 
