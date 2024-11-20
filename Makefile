@@ -2,7 +2,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PYTHON=python3
+PYTHON=python3.11
 PIP=pip3
 VENV_DIR=streamlining
 PROJECT_DIR = $(CURDIR)
@@ -14,10 +14,14 @@ venv:
 	$(VENV_DIR)/bin/$(PIP) install --upgrade pip
 
 install: venv
-	$(VENV_DIR)/bin/$(PIP) install -r requirements.txt
+	$(VENV_DIR)/bin/$(PIP) install -e .
 
 prepare_data:
 	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/dataset.py
+
+clean_data:
+	rm	-rf	data/processed/*
+	rm	-rf	data/interim/*
 
 feature_select:
 	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/features.py
@@ -27,3 +31,6 @@ train:
 
 evaluate:
 	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/eval.py
+
+clean_venv:
+	rm -rf $(VENV_DIR)
