@@ -3,34 +3,32 @@
 #################################################################################
 
 PYTHON=python3.11
-PIP=pip3
-VENV_DIR=streamlining
 PROJECT_DIR = $(CURDIR)
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
-venv:
-	$(PYTHON) -m venv $(VENV_DIR)
-	$(VENV_DIR)/bin/$(PIP) install --upgrade pip
-
-install: venv
-	$(VENV_DIR)/bin/$(PIP) install -e .
+.PHONY: install prepare_data feature_select train evaluate clean_data clean_venv
+install:
+	poetry	install
 
 prepare_data:
-	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/dataset.py
-
-clean_data:
-	rm	-rf	data/processed/*
-	rm	-rf	data/interim/*
+	poetry	run prepare_data
 
 feature_select:
-	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/features.py
+	poetry	run feature_select
 
 train:
-	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/modeling/train.py
+	poetry	run train
 
 evaluate:
-	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/modeling/eval.py
+	poetry	run evaluate
+
+clean_data:
+	rm -rf data/processed/*
+	rm -rf data/interim/*
 
 clean_venv:
-	rm -rf $(VENV_DIR)
+	@venv_path=$$(poetry	env	info	--path)	&&	echo	"Removing	virtual	environment	at	$$venv_path"	&&	rm	-rf	$$venv_path
+
+clean_models:
+	rm	-rf	models/*

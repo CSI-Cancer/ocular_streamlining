@@ -1,6 +1,4 @@
 Getting started
 ===============
 
-This is where you describe how to get set up on a clean install, including the
-commands necessary to get the raw data (using the `sync_data_from_s3` command,
-for example), and then how to make the cleaned, final data sets.
+The list of slides in the excel sheet format is used as the raw immutable data from which canonical data that is input the model is used. Name of the file does not matter as long as the file extension is .xlsx. Typically the excel sheet has two columns. Slide_id and Classification. The classification column is optional.

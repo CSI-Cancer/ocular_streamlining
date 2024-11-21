@@ -152,7 +152,7 @@ def main(
         for feature in features:
             f.write(f"{feature}\n")
 
-    logger.success("Features election complete.")
+    logger.success("Features selection complete.")
     # -----------------------------------------
 
 

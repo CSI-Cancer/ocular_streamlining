@@ -1,1 +1,1 @@
-from streamlining_training import config  # noqa: F401
+from streamlining_training import config, dataset, features   # noqa: F401
