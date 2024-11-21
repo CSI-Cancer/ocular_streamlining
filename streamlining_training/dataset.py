@@ -361,6 +361,7 @@ def process_slide(slide_id,
     ocular_params: dict
 
     Returns:
+    final_df: pd.DataFrame
 
     """
     # Slice events corresponding to the slide
