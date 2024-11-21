@@ -63,4 +63,18 @@ streamlning training and Pipeline setup
 
 The Makefile contains the central entry points for common tasks related to this project.
 
-# make install
+### make install
+
+### make prepare_data
+
+### make feature_select
+
+### make train
+
+### make evaluate
+
+### make clean_data
+
+### make clean_venv
+
+### make clean_models
