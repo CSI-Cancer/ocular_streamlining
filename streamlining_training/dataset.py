@@ -345,6 +345,24 @@ def process_slide(slide_id,
                      events,
                        per_ml,
                         ocular_params,):
+    """
+    This method accepts the slide id, curated events and per ml data,
+    drops the duplicates and drops unused columns, and gets the frame and slide level
+    morphopmetrics and merges them along with event level data then reads ocular files,
+    namely, rc-final1.rds, rc-final2.rds, rc-final3.rds, rc-final4.rds, to get the set
+    of interesting events along with manually curated interesting events and then set
+    of not interesting events from uncurated_not_interesting evenst from files and,
+    manual_not_interesting to produce the final dataframe for that slide.
+
+    Args:
+    slide_id: str
+    events: pd.DataFrame
+    per_ml: pd.DataFrame
+    ocular_params: dict
+
+    Returns:
+
+    """
     # Slice events corresponding to the slide
     manual_interesting = events[(events['slide_id'] == slide_id) & (events['interesting'] == 1)].copy()
     manual_not_interesting = events[(events['slide_id'] == slide_id) & (events['interesting'] == 0)].copy()

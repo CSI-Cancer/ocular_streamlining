@@ -2,7 +2,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PYTHON=python3.11
+PYTHON=python3.12
 PROJECT_DIR = $(CURDIR)
 #################################################################################
 # COMMANDS                                                                      #
@@ -28,7 +28,7 @@ clean_data:
 	rm -rf data/interim/*
 
 clean_venv:
-	@venv_path=$$(poetry	env	info	--path)	&&	echo	"Removing	virtual	environment	at	$$venv_path"	&&	rm	-rf	$$venv_path
+	@venv_path=$$(poetry	env	info	--path)	&&	rm	-rf	$$venv_path
 
 clean_models:
 	rm	-rf	models/*
