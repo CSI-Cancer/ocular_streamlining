@@ -75,10 +75,10 @@ def main(
     model = HistGradientBoostingClassifier(random_state=42)
     sweep_type = RandomizedSearchCV(estimator=model,
                                     param_distributions=sweep_config,
-                                    n_iter=1000,
+                                    n_iter=1,
                                     scoring='average_precision',
                                     n_jobs=-1,
-                                    cv=10,
+                                    cv=2,
                                     random_state=42,
                                     verbose=1)
     # fit gridsearch
