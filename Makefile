@@ -27,10 +27,10 @@ feature_select:
 	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/features.py
 
 train:
-	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/train.py
+	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/modeling/train.py
 
 evaluate:
-	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/eval.py
+	PYTHONPATH=$(PROJECT_DIR)	$(VENV_DIR)/bin/$(PYTHON) streamlining_training/modeling/eval.py
 
 clean_venv:
 	rm -rf $(VENV_DIR)

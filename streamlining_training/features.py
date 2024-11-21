@@ -135,8 +135,6 @@ def main(
     logger.info("Feature selection from dataset...")
     train_df = pd.read_csv(input_path / "train_data.csv")
     val_df = pd.read_csv(input_path / "val_data.csv")
-    train_slides = train_df["slide_id"].unique()
-    val_slides = val_df["slide_id"].unique()
 
     # Over-sampler
     sampler = get_oversampler("smote")
