@@ -21,10 +21,10 @@ streamlning training and Pipeline setup
 │
 ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
 │                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+│                         `1.0-RMN-initial-data-exploration`.
 │
 ├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         streamlining_training and configuration for tools like black
+│                         streamlining_training and configuration for tools and dependencies.
 │
 ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
 │
@@ -34,7 +34,7 @@ streamlning training and Pipeline setup
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
 │
-├── setup.cfg          <- Configuration file for flake8
+├── setup.py          <- Used along with setuptools to build and distribute the project.
 │
 └── streamlining_training   <- Source code for use in this project.
     │
