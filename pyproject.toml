@@ -30,12 +30,14 @@ tqdm = "4.66.5"
 typer = "0.13.1"
 python-dotenv = "1.0.1"
 openpyxl = "3.1.5"
+pdocs = "1.2.0"
 
 [tool.poetry.scripts]
 prepare_data = "streamlining_training.dataset:main"
 feature_select = "streamlining_training.features:main"
 train = "streamlining_training.modeling.train:main"
 evaluate = "streamlining_training.modeling.eval:main"
+generate_docs = "scripts.generate_docs:main"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0"
