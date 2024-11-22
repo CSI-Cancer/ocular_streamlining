@@ -6,24 +6,28 @@ build-backend = "poetry.core.masonry.api"
 name = "streamlining_training"
 version = "0.1.0"
 description = "Ocular Streamlining Project"
-authors = ["Rajiv Mandya Nagaraju <mandyana@usc.edu>"]
+authors = [
+    "Rajiv Mandya Nagaraju <mandyana@usc.edu>",
+    "Brian Zhang <8885230+brianjzhang@users.noreply.github.com",
+]
 
 [tool.poetry.dependencies]
-python = "^3.12"
-csi-utils = { path = "/mnt/HDSCA_Pipeline/software/csi_utils" }
+python = "^3.11"
+csi-utils = { path = "../csi_utils" }
+csi-images = { version = "^1.2.2", extras = ["rds"] }
+csi-analysis = { path = "../csi_analysis" }
 imbalanced-learn = "0.12.4"
 loguru = "0.7.2"
 matplotlib = "3.9.2"
 matplotlib-inline = "0.1.7"
-numpy = "2.1.2"
-pandas = "2.2.3"
-psycopg2 = { version = "2.9.10", allow-prereleases = true, source = "pypi" }
-pyreadr = "0.5.2"
-scikit-learn = "1.5.2"
+numpy = "^1.26.4"
+pandas = "^1.5.3"
+scikit-learn = "1.2.0"
 scipy = "1.14.1"
 seaborn = "0.13.2"
 threadpoolctl = "3.5.0"
 tqdm = "4.66.5"
+typer = "0.13.1"
 python-dotenv = "1.0.1"
 openpyxl = "3.1.5"
 

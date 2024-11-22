@@ -19,7 +19,7 @@ from itertools import permutations
 # Add the project root directory to sys.path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from csi_utils import databases
+from csi_utils import csi_databases
 from streamlining_training.config import (
     RAW_DATA_DIR, COHORT_PAIR, INTERIM_DATA_DIR, CUSTOM_SPLIT, 
     PRODUCTION_REPORT_DIR, PROCESSED_DATA_DIR, ocular_params,
@@ -60,26 +60,31 @@ def get_events_and_perML(
             manual_class="Manual",
             both=["per_ml", "events"]):
     ## Get per ML data from the database
-    handler = databases.DatabaseHandler(is_production=True,
-                                        username="reader",
-                                        write_protect=True)
+    handler = csi_databases.DatabaseHandler(username="reader",
+                                            is_production=True,
+                                            read_only=True)
     # Query for tube ids for all the slides
     slide_ids = generate_friendly_list(slide_ids["slide_id"].apply(remove_suffix).values.tolist())
     data_from_db = {key: None for key in both}
 
     if "per_ml" in both:
         # Query for slide and tube
-        query = ["select slide_id, tube_id from slide where slide_id = %s"]*len(slide_ids)
+        query = ["select slide_id, tube_id from slide where slide_id = %s"] * len(
+            slide_ids)
         query_result = handler.get(query, slide_ids)
-        slides_tubes = pd.DataFrame(list(itertools.chain.from_iterable(query_result['results'])),
-                                columns=query_result['headers'][0] )
-        
+        slides_tubes = pd.DataFrame(
+            list(itertools.chain.from_iterable(query_result['results'])),
+            columns=query_result['headers'][0])
+
         # Query for per ML details using tube ids
         tube_values = generate_friendly_list(slides_tubes["tube_id"].values.tolist())
-        query = ["select tube_id, wbc_count, patient_id from tube where tube_id = (%s)"]*len(tube_values)
+        query = [
+                    "select tube_id, wbc_count, patient_id from tube where tube_id = (%s)"] * len(
+            tube_values)
         query_result = handler.get(query, tube_values)
-        tubes_wbc_counts = pd.DataFrame(list(itertools.chain.from_iterable(query_result['results'])),
-                                columns=query_result['headers'][0] )
+        tubes_wbc_counts = pd.DataFrame(
+            list(itertools.chain.from_iterable(query_result['results'])),
+            columns=query_result['headers'][0])
         
         # Query analysis table for dapi counts per slide
         query = ["select slide_id, dapi_count_ocular from analysis where slide_id = (%s)"]*len(slide_ids)

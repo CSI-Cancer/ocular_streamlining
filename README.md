@@ -1,64 +1,102 @@
-# streamlining training
+# OCULAR Streamlining: Training & Pipeline
 
+## Getting Started
 
-streamlning training and Pipeline setup
+Clone this repository, as well as
+the [CSI-Cancer/csi_analysis](https://github.com/CSI-Cancer/csi_analysis)
+and [CSI-Cancer/csi_utils](https://github.com/CSI-Cancer/csi_utils)
+to the same directory.
+
+```commandline
+git clone git@github.com:CSI-Cancer/ocular_streamlining.git
+git clone git@github.com:CSI-Cancer/csi_utils.git
+git clone git@github.com:CSI-Cancer/csi_analysis.git
+```
+
+Enter the `ocular_streamlining` directory, create a virtual environment, activate and
+install the package and all dependencies:
+
+```commandline
+cd ocular_streamlining
+python -m venv .venv
+source .venv/bin/activate
+make install
+```
+
+If you do not have `poetry` installed, you can install it globally with:
+
+```commandline
+sudo apt install pipx
+pipx install poetry
+```
+
+Or just locally:
+
+```commandline
+pip install poetry
+```
+
+You should now be able to run scripts and training.
 
 ## Project Organization
 
 ```
-├
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+├── Makefile                <- `make` aliases; `make install`, `make data`, etc.
+├── README.md               <- You really should read this
+├── pyproject.toml          <- Project configuration file with package metadata, 
+│                              configurations, and dependencies.
+├── requirements.txt        <- Install dependencies manually with 
+|                              `pip install -r requirements.txt`
+├── data                    <- Directory for storing data
+│ ├── external                  <- Data from third party sources
+│ ├── interim                   <- Intermediate data that has been transformed
+│ ├── processed                 <- The final, canonical data sets for modeling
+│ └── raw                       <- The original, immutable data dump
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+├── docs                    <- pdocs generated HTML documentation
+|
+├── models                  <- Trained models, predictions, or model summaries
+|
+├── notebooks               <- Jupyter notebooks. Naming convention is a number 
+|                              (for ordering), the creator's initials, and a 
+|                              short `-` delimited description, e.g. 
+|                              `1.0-RMN-initial-data-exploration`
+|
+├── references              <- Data dictionaries, manuals, etc.
+
+├── reports                 <- Generated analysis as HTML, PDF, LaTeX, etc.
+│ └── figures                   <- Generated graphics and figures for reporting
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── scripts                 <- Pipeline scripts
+| └── do_streamlining.py    <- Script to run models with OCULAR outputs.
+|
+├── ocular_streamlining     <- Model application source code for pipeline use.
+| ├── __init__.py
+| ├── channel_classifier.py
+| └── streamlining_classifier.py
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-RMN-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         streamlining_training and configuration for tools and dependencies.
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.py          <- Used along with setuptools to build and distribute the project.
-│
-└── streamlining_training   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes streamlining_training a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+└── streamlining_training   <- Training source code, including supportive modules
+  ├── __init__.py
+  ├── config.py                 <- Store useful variables and configuration
+  ├── dataset.py                <- Scripts to download or generate data
+  ├── features.py               <- Code to create features for modeling
+  ├── plots.py                  <- Code to create visualizations
+  └── modeling                  <- Model training and evaluation source code
+    ├── __init__.py
+    ├── eval.py                     <- Code to test models
+    ├── predict.py                  <- Code to infer using trained models
+    └── train.py                    <- Code to train models
 ```
 
 --------
 
 ### Input file
 
-The list of slides in the excel sheet format is used as the raw immutable data from which canonical data that is input the model is used. Name of the file does not matter as long as the file extension is .xlsx. Typically the excel sheet has two columns. Slide_id and Classification. The classification column is optional. This needs to be manually placed in the ./data/raw/ folder.
+The list of slides in the Excel sheet format is used as the raw immutable data from
+which canonical data that is input the model is used. Name of the file does not matter
+as long as the file extension is .xlsx. Typically, the Excel sheet has two columns.
+"Slide_id" and "Classification". The classification column is optional. This needs to be
+manually placed in the ./data/raw/ folder.
 
 <table>
 <thead>
@@ -75,34 +113,30 @@ The list of slides in the excel sheet format is used as the raw immutable data f
 </tbody>
 </table>
 
-
-### Environment and Dependency Handling
-
-The repo uses poetry to handle the environment and dpendencies. To install poetry: 
-<p><code>curl -sSL https://install.python-poetry.org | python3 -</code></p>
-
-Once the poetry is installed. Go to the root repository and use the below commands.
-
 ### Commands
-The Makefile contains the central entry points for common tasks related to this project.
 
-#### To create virtual environment and install all the dependencies
-<p><code>make install</code></p>
+The Makefile contains the central entry points for common tasks related to this project:
 
 #### To extract and create interim dataset
+
 <p><code>make prepare_data</code></p>
 
 #### To feature select from the set of features that exists in ocular
+
 <p><code>make prepare_data</code></p>
 
 #### To Train the model
+
 <p><code>make train</code></p>
 
 #### To evaluate the trained model on the test and val dataset
+
 <p><code>make evaluate</code></p>
 
 #### To clean the interimediate and processed canonical data
+
 <p><code>make clean_venv</code></p>
 
 #### To clean up the trained model
+
 <p><code>make clean_models</code></p>
