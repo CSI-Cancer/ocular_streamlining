@@ -59,10 +59,6 @@ streamlning training and Pipeline setup
 
 --------
 
-## Commands
-
-The Makefile contains the central entry points for common tasks related to this project.
-
 ### Input file
 
 The list of slides in the excel sheet format is used as the raw immutable data from which canonical data that is input the model is used. Name of the file does not matter as long as the file extension is .xlsx. Typically the excel sheet has two columns. Slide_id and Classification. The classification column is optional. This needs to be manually placed in the ./data/raw/ folder.
@@ -88,18 +84,28 @@ The list of slides in the excel sheet format is used as the raw immutable data f
 The repo uses poetry to handle the environment and dpendencies. To install poetry: 
 <p><code>curl -sSL https://install.python-poetry.org | python3 -</code></p>
 
-### make install
+Once the poetry is installed. Go to the root repository and use the below commands.
 
-### make prepare_data
+### Commands
+The Makefile contains the central entry points for common tasks related to this project.
 
-### make feature_select
+#### To create virtual environment and install all the dependencies
+<p><code>make install</code></p>
 
-### make train
+#### To extract and create interim dataset
+<p><code>make prepare_data</code></p>
 
-### make evaluate
+#### To feature select from the set of features that exists in ocular
+<p><code>make prepare_data</code></p>
 
-### make clean_data
+#### To Train the model
+<p><code>make train</code></p>
 
-### make clean_venv
+#### To evaluate the trained model on the test and val dataset
+<p><code>make evaluate</code></p>
 
-### make clean_models
+#### To clean the interimediate and processed canonical data
+<p><code>make clean_venv</code></p>
+
+#### To clean up the trained model
+<p><code>make clean_models</code></p>
