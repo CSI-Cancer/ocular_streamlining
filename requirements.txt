@@ -1,0 +1,19 @@
+-e .
+loguru~=0.7.2
+tqdm~=4.66.5
+numpy~=1.26.4
+python-dotenv~=1.0.1
+pyreadr~=0.5.2
+pandas~=1.5.3
+scikit-learn==1.2.0
+matplotlib~=3.9.2
+seaborn~=0.13.2
+imbalanced-learn~=0.12.4
+scipy~=1.14.1
+typer==0.13.1
+csi_images~=1.2.2
+csi_utils @ file://../csi_utils
+csi_analysis @ file://../csi_analysis
+setuptools~=75.2.0
+joblib~=1.4.2
+pdoc
