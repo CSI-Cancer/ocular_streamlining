@@ -64,17 +64,19 @@ streamlning training and Pipeline setup
 The Makefile contains the central entry points for common tasks related to this project.
 
 ### Input file
+
+The list of slides in the excel sheet format is used as the raw immutable data from which canonical data that is input the model is used. Name of the file does not matter as long as the file extension is .xlsx. Typically the excel sheet has two columns. Slide_id and Classification. The classification column is optional. This needs to be manually placed in the ./data/raw/ folder.
 <table>
 <thead>
 <tr>
-<th>foo</th>
-<th>bar</th>
+<th>slide_id</th>
+<th>classifications</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>baz</td>
-<td>bim</td>
+<td>0B58703</td>
+<td>NBD</td>
 </tr>
 </tbody>
 </table>
