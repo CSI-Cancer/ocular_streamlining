@@ -92,8 +92,8 @@ You should now be able to run scripts and training.
 
 The list of slides in the Excel sheet format is used as the raw immutable data from
 which canonical data that is input the model is used. Name of the file does not matter
-as long as the file extension is .xlsx. Typically, the Excel sheet has two columns.
-"Slide_id" and "Classification". The classification column is optional. This needs to be
+as long as the file extension is .xlsx. Typically, the Excel sheet has two columns:
+"slide_id" and "classification" ("classification" is optional). This needs to be
 manually placed in the ./data/raw/ folder.
 
 <table>
@@ -121,7 +121,7 @@ The Makefile contains the central entry points for common tasks related to this 
 
 #### To feature select from the set of features that exists in ocular
 
-<p><code>make prepare_data</code></p>
+<p><code>make feature_select</code></p>
 
 #### To Train the model
 
@@ -131,7 +131,7 @@ The Makefile contains the central entry points for common tasks related to this 
 
 <p><code>make evaluate</code></p>
 
-#### To clean the interimediate and processed canonical data
+#### To clean the intermediate and processed canonical data
 
 <p><code>make clean_venv</code></p>
 
