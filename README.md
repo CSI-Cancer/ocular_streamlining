@@ -63,6 +63,22 @@ streamlning training and Pipeline setup
 
 The Makefile contains the central entry points for common tasks related to this project.
 
+### Input file
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>baz</td>
+<td>bim</td>
+</tr>
+</tbody>
+</table>
+
 ### make install
 
 ### make prepare_data
