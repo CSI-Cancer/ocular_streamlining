@@ -80,9 +80,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# MkDocs documentation
-docs/site/
-
 # PyBuilder
 .pybuilder/
 target/

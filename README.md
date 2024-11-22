@@ -3,14 +3,12 @@
 ## Getting Started
 
 Clone this repository, as well as
-the [CSI-Cancer/csi_analysis](https://github.com/CSI-Cancer/csi_analysis)
-and [CSI-Cancer/csi_utils](https://github.com/CSI-Cancer/csi_utils)
+[CSI-Cancer/csi_utils](https://github.com/CSI-Cancer/csi_utils)
 to the same directory.
 
 ```commandline
 git clone git@github.com:CSI-Cancer/ocular_streamlining.git
 git clone git@github.com:CSI-Cancer/csi_utils.git
-git clone git@github.com:CSI-Cancer/csi_analysis.git
 ```
 
 Enter the `ocular_streamlining` directory, create a virtual environment, activate and

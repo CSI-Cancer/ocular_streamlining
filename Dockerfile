@@ -27,7 +27,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Copy over private dependencies
 COPY --from=csi_utils /csi_utils /csi_utils
-COPY --from=csi_analysis /csi_analysis /csi_analysis
 
 # Copy over package and install
 COPY $PACKAGE_NAME /$PACKAGE_NAME/$PACKAGE_NAME
