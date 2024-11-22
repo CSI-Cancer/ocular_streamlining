@@ -15,7 +15,7 @@ authors = [
 python = "^3.11"
 csi-utils = { path = "../csi_utils" }
 csi-images = { version = "^1.2.2", extras = ["rds"] }
-csi-analysis = { path = "../csi_analysis" }
+csi-analysis = { version = "^0.2.0" }
 imbalanced-learn = "0.12.4"
 loguru = "0.7.2"
 matplotlib = "3.9.2"

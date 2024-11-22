@@ -13,7 +13,7 @@ scipy~=1.14.1
 typer==0.13.1
 csi_images~=1.2.2
 csi_utils @ file://../csi_utils
-csi_analysis @ file://../csi_analysis
+csi_analysis==0.2.0
 setuptools~=75.2.0
 joblib~=1.4.2
 pdoc
