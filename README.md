@@ -66,6 +66,7 @@ The Makefile contains the central entry points for common tasks related to this 
 ### Input file
 
 The list of slides in the excel sheet format is used as the raw immutable data from which canonical data that is input the model is used. Name of the file does not matter as long as the file extension is .xlsx. Typically the excel sheet has two columns. Slide_id and Classification. The classification column is optional. This needs to be manually placed in the ./data/raw/ folder.
+
 <table>
 <thead>
 <tr>
@@ -80,6 +81,12 @@ The list of slides in the excel sheet format is used as the raw immutable data f
 </tr>
 </tbody>
 </table>
+
+
+### Environment and Dependency Handling
+
+The repo uses poetry to handle the environment and dpendencies. To install poetry: 
+<p><code>curl -sSL https://install.python-poetry.org | python3 -</code></p>
 
 ### make install
 
