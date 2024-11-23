@@ -32,3 +32,6 @@ clean_venv:
 
 clean_models:
 	rm	-rf	models/*
+
+generate_docs:
+	poetry	run	generate_docs
