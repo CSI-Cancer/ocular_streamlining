@@ -6,7 +6,7 @@ from loguru import logger
 import pandas as pd
 
 from csi_images.csi_events import EventArray
-from csi_analysis.pipelines.scan_pipeline import EventClassifier
+from csi_analysis.pipelines.scan import EventClassifier
 
 REPOSITORY_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHANNEL_CLASSIFIERS_PATH = os.path.join(REPOSITORY_PATH, "models", "channel_classifier")

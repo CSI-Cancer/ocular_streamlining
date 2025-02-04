@@ -234,7 +234,7 @@ def main():
     events.metadata["clust"] = events.metadata["unique_id"].replace(
         to_replace=data.get("unique_id").to_numpy().tolist(),
         value=data.get("cluster_id").to_numpy().tolist(),)
-
+    logger.info(f"Saving {len(data)} events to OCULAR files for reporting...")
     events.save_ocular(report_path)
     logger.info("Saved results to OCULAR files for reporting.")
 

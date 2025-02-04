@@ -3,8 +3,8 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "streamlining_training"
-version = "0.1.0"
+name = "ocular_streamlining"
+version = "0.1.1"
 description = "Ocular Streamlining Project"
 authors = [
     "Rajiv Mandya Nagaraju <mandyana@usc.edu>",
@@ -14,8 +14,8 @@ authors = [
 [tool.poetry.dependencies]
 python = "^3.11"
 csi-utils = { path = "../csi_utils" }
-csi-images = { version = "^1.4.0", extras = ["rds"] }
-csi-analysis = { version = "^0.2.0" }
+csi-images = { version = "^3.0", extras = ["rds"] }
+csi-analysis = { version = "^0.2" }
 imbalanced-learn = "0.12.4"
 loguru = "0.7.2"
 matplotlib = "3.9.2"
